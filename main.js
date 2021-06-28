@@ -1,4 +1,9 @@
 
+if(JSON.parse(localStorage.getItem("list"))===null)
+{
+    let list = [];
+    localStorage.setItem("list",JSON.stringify(list));
+}
 let list = JSON.parse(localStorage.getItem("list"));
 
 let getTime = () =>
