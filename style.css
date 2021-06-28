@@ -90,6 +90,26 @@ main .glass .dashboard .user:hover img {
           transform: rotate(360deg);
 }
 
+main .glass .dashboard .links {
+  height: 300px;
+  overflow-y: auto;
+}
+
+main .glass .dashboard .links::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+
+main .glass .dashboard .links::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+main .glass .dashboard .links::-webkit-scrollbar-thumb {
+  background-color: #0ae;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.5, rgba(255, 255, 255, 0.2)), color-stop(0.5, transparent), to(transparent));
+}
+
 main .glass .dashboard .links .link {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -144,6 +164,7 @@ main .glass .dashboard .pro h4 {
   font-size: 12px;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
+  cursor: pointer;
 }
 
 main .glass .dashboard .pro h4:hover {
@@ -228,6 +249,21 @@ main .glass .todo-list .status span::after {
 main .glass .todo-list .lists {
   overflow-y: auto;
   height: 350px;
+}
+
+main .glass .todo-list .lists::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+
+main .glass .todo-list .lists::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+main .glass .todo-list .lists::-webkit-scrollbar-thumb {
+  background-color: #0ae;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.5, rgba(255, 255, 255, 0.2)), color-stop(0.5, transparent), to(transparent));
 }
 
 main .glass .todo-list .lists .item {
