@@ -58,8 +58,10 @@ setInterval(function (){getTime()},1000);
 let renderList = () =>
 {
     $(".lists").empty();
+    
     if(list.length)
     {
+        
         list.map(val=>
             {
                 let totalTime;
@@ -156,7 +158,7 @@ $("#add-to-list").click(function (e) {
             let Time = new Date();
             let nowTime = Time.getFullYear()+"/"+(Number(Time.getMonth())+1)+"/"+Time.getDate();
             console.log(nowTime)
-            list.push({name:thing,deadline:deadline,quantity:true,checked:false,id:randomId(5),now:nowTime});
+            list.unshift({name:thing,deadline:deadline,quantity:true,checked:false,id:randomId(5),now:nowTime});
             renderList();
             $("#something").val("");
         }
@@ -182,8 +184,18 @@ $("#add-to-list").click(function (e) {
 $(document).on("click",".delete", function () {
     const curId = $(this).parent().data("id");
     let idx = list.findIndex(val=>val.id === curId);
-    list.splice(idx,1);
-    renderList();
+    $(".notice-delete").fadeIn("fast");
+    $(".notice-delete").css("display", "flex");
+    $("#delete-item").click(function (e) { 
+        e.preventDefault();
+        list.splice(idx,1);
+        renderList();
+        $(".notice-delete").fadeOut(500);
+    });
+    $("#cencal-delete").click(function (e) { 
+        e.preventDefault();
+        $(".notice-delete").fadeOut(500);
+    });
 });
 
 //randomId function
@@ -203,3 +215,51 @@ const rndChar = () =>
     const idx = Math.floor(Math.random()*chars.length);
     return chars[idx];
 }
+//weather
+
+
+function weatherBalloon( cityID ) {
+    var key = '89a619a4a6382776c76327928ed9a78e';
+    fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key)  
+    .then(function(resp) { return resp.json() }) // Convert data to json
+    .then(function(data) {
+       const mainWeather = [
+            {name:"clear", day:"http://openweathermap.org/img/wn/01d@2x.png", night:"http://openweathermap.org/img/wn/01n@2x.png"},
+            {name:"clouds",day:"http://openweathermap.org/img/wn/02d@2x.png",night:"http://openweathermap.org/img/wn/02n@2x.png"},
+            {name:"shower rain",day:"http://openweathermap.org/img/wn/09d@2x.png",night:"http://openweathermap.org/img/wn/09n@2x.png"},
+            {name:"rain",day:"http://openweathermap.org/img/wn/11d@2x.png",night:"http://openweathermap.org/img/wn/11d@2x.png"},
+            {name:"thunderstorm",day:"http://openweathermap.org/img/wn/11d@2x.png",night:"http://openweathermap.org/img/wn/11d@2x.png"},
+            {name:"	snow",day:"http://openweathermap.org/img/wn/13d@2x.png",night:"http://openweathermap.org/img/wn/13d@2x.png"},
+            {name:"mist",day:"http://openweathermap.org/img/wn/50d@2x.png",night:"http://openweathermap.org/img/wn/50d@2x.png"}
+        
+        ]
+        console.log(data);
+        //status
+        $(".decription").text(`${data.weather[0].main}`);
+        //icon
+        let now = new Date();
+        if(Number(now.getHours())>=18)
+            {
+                $(".icon").html(`
+            <img src="${mainWeather.filter(val=>val.name===data.weather[0].main.toLowerCase())[0].night}">`);
+            }
+            else
+            {
+                $(".icon").html(`
+            <img src="${mainWeather.filter(val=>val.name===data.weather[0].main.toLowerCase())[0].day}">`);
+            }
+        //temperature
+        $(".temperature").text(`${Number((data.main.temp-273.15).toFixed(2))}`);
+        //humidity
+        $(".humidity").text(`Humidity: ${Number((data.main.humidity).toFixed(2))} %`);
+        $(".wind-speed").text(`Wind speed: ${Number((data.wind.speed).toFixed(2))} km/h`);
+        $(".wind-deg").text(`Win deg: ${Number((data.wind.deg).toFixed(2))} deg`);
+
+      })
+      
+    .catch(function() {
+      // catch any errors
+    });
+  }
+  setInterval(function (){weatherBalloon( 1566083);},1000)
+
