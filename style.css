@@ -22,16 +22,30 @@
 }
 
 @-webkit-keyframes fly {
-  to {
-    -webkit-transform: translate(95px, 65px);
-            transform: translate(95px, 65px);
+  50% {
+    opacity: 0.9;
+  }
+  75% {
+    opacity: 0.8;
+  }
+  100% {
+    -webkit-transform: translate(120px, 90px);
+            transform: translate(120px, 90px);
+    opacity: 0;
   }
 }
 
 @keyframes fly {
-  to {
-    -webkit-transform: translate(95px, 65px);
-            transform: translate(95px, 65px);
+  50% {
+    opacity: 0.9;
+  }
+  75% {
+    opacity: 0.8;
+  }
+  100% {
+    -webkit-transform: translate(120px, 90px);
+            transform: translate(120px, 90px);
+    opacity: 0;
   }
 }
 
