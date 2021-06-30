@@ -382,7 +382,7 @@ main .glass .todo-list .lists .item .item-info .count-down .time span {
 main .glass .todo-list .lists .item .item-info .progress {
   border-radius: 1rem;
   border: none;
-  width: 100px;
+  width: 100%;
   height: 10px;
   background-color: white;
   position: relative;
@@ -675,6 +675,7 @@ main .notice-delete .content .btn {
 
 main .notice-delete .content .btn button {
   padding: 10px 0px;
+  border-radius: 10%;
   font-weight: bold;
   background-color: #66B8E4;
   border: 1px solid #ebeeee;

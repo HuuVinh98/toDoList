@@ -88,7 +88,10 @@ let renderList = () =>
                            
                         </div>
                         <span class="delete"><i class="far fa-times-circle"></i></span>
-                    </div> `
+                    </div>
+                   
+                     </div>
+                    `
                     
                 ).appendTo(".lists");
             });
@@ -181,21 +184,35 @@ $("#add-to-list").click(function (e) {
 });
 
 //delete item
+
 $(document).on("click",".delete", function () {
     const curId = $(this).parent().data("id");
-    let idx = list.findIndex(val=>val.id === curId);
+     let idxs= list.findIndex(val=>val.id === curId);
+    $("main").append(
+        `
+            <div class="notice-delete" data-id="${idxs}">
+            <div class="content">
+                <h3>Do you want to delete this item?</h3>
+                <div class="btn">
+                    <button id="delete-item">Delete</button>
+                    <button id="cencal-delete">Cencal</button>
+                </div>
+            </div>
+        `
+    );
     $(".notice-delete").fadeIn("fast");
-    $(".notice-delete").css("display", "flex");
-    $("#delete-item").click(function (e) { 
-        e.preventDefault();
-        list.splice(idx,1);
-        renderList();
-        $(".notice-delete").fadeOut(500);
-    });
-    $("#cencal-delete").click(function (e) { 
-        e.preventDefault();
-        $(".notice-delete").fadeOut(500);
-    });
+    $(".notice-delete").css("display", "flex");    
+    
+});
+$(document).on("click","#delete-item", function () {
+    const curId = $(this).parents(".notice-delete").data("id");
+    list.splice(curId,1);
+    renderList();
+    $(".notice-delete").fadeOut(500);
+});
+$(document).on("click","#cencal-delete", function () {
+    $(".notice-delete").fadeOut(500);
+    $(".notice-delete").remove();
 });
 
 //randomId function
@@ -233,12 +250,11 @@ function weatherBalloon( cityID ) {
             {name:"mist",day:"http://openweathermap.org/img/wn/50d@2x.png",night:"http://openweathermap.org/img/wn/50d@2x.png"}
         
         ]
-        console.log(data);
         //status
         $(".decription").text(`${data.weather[0].main}`);
         //icon
         let now = new Date();
-        if(Number(now.getHours())>=18)
+        if(Number(now.getHours())>=18 || Number(now.getHours())<6)
             {
                 $(".icon").html(`
             <img src="${mainWeather.filter(val=>val.name===data.weather[0].main.toLowerCase())[0].night}">`);
